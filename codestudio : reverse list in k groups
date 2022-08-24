@@ -1,0 +1,38 @@
+/****************************************************************
+    Following is the Linked List node structure
+
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+*****************************************************************/
+
+
+Node* kReverse(Node* head, int k) { 
+    if(head == NULL) {
+        return head; 
+    }
+    // Write your code here. 
+    Node* prev=NULL; 
+    Node* curr=head; 
+    
+    int n=k; 
+    while((curr != NULL) && (k > 0)) {
+        Node* forward=curr->next; 
+        curr -> next = prev; 
+        prev = curr; 
+        curr = forward; 
+        k--; 
+    } 
+    
+    head -> next = kReverse(curr, n); 
+    return prev; 
+} 
