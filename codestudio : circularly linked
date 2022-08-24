@@ -1,0 +1,38 @@
+/*************************************************
+        Following is the structure of class Node:
+     
+        class Node{
+        public:
+            int data;
+            Node* next;
+            
+            Node(int data){
+                this->data = data;
+                this->next = NULL;
+            }
+            
+        }
+**************************************************/
+
+bool isCircular(Node* head){ 
+    Node* temp=head; 
+    temp = temp -> next; 
+    int flag=0; 
+    while(temp -> data != head -> data && temp -> next != NULL) { 
+        if(temp -> next == NULL) {
+            break; 
+        }
+        if(temp -> data == head -> data) {
+            flag = 1; 
+            break; 
+        } 
+        temp = temp -> next; 
+    } 
+    
+    
+    if(flag == 1) {
+        return true; 
+    } 
+    return false; 
+    // Write your code here.
+} 
