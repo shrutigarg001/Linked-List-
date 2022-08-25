@@ -1,0 +1,42 @@
+/************************************************************
+
+    Following is the linked list node structure.
+    
+    class Node 
+    {
+        public:
+        int data;
+        Node* next;
+
+        Node(int data) 
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+    
+************************************************************/
+
+Node * uniqueSortedList(Node * head) {
+    // Write your code here. 
+    Node *curr=head; 
+    
+    if(head == NULL) {
+        return NULL;
+    } 
+    
+    while(curr != NULL && curr->next != NULL) {
+        if(curr -> data != curr->next->data) {
+            curr = curr -> next; 
+        } 
+        else if(curr->next != NULL){
+            Node* temp=curr->next; 
+            Node* next_next=curr -> next -> next;
+            delete(temp); 
+            curr -> next = next_next;
+        }
+    } 
+    
+    return head; 
+} 
+
