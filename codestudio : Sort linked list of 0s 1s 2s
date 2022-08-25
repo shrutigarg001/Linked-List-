@@ -1,0 +1,118 @@
+// Approach 1 
+Node* sortList(Node *head)
+{
+    // Write your code here. 
+    if(head == NULL) {
+        return head; 
+    } 
+    
+    int countZero=0; 
+    int countOne=0,countTwo=0; 
+    
+    Node* temp=head; 
+    Node* curr=head;
+    
+    while(temp != NULL) {
+        if(temp -> data == 0) {
+            countZero++; 
+        } 
+        else if(temp -> data == 1) {
+            countOne++; 
+        } 
+        else {
+            countTwo++; 
+        } 
+        temp = temp -> next; 
+    } 
+    
+    while(curr != NULL) {
+        while((curr != NULL) && (countZero > 0)) {
+            curr -> data = 0; 
+            countZero--; 
+            curr = curr -> next; 
+        } 
+        while((curr != NULL) && (countOne > 0)) {
+            curr -> data = 1; 
+            countOne--; 
+            curr = curr -> next; 
+        } 
+        while((curr != NULL) && (countTwo > 0)) {
+            curr -> data = 2; 
+            countTwo--; 
+            curr = curr -> next; 
+        } 
+    }
+   
+    return head; 
+}
+
+// Approach 2 
+
+/********************************
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+********************************/
+void insertAtTail(Node* &tail, Node* &curr) {
+    tail -> next = curr; 
+    tail = curr; 
+} 
+
+Node* sortList(Node *head)
+{
+    // Write your code here.
+    Node* zeroHead=new Node(-1); 
+    Node* zeroTail=zeroHead; 
+    
+    Node* oneHead=new Node(-1); 
+    Node* oneTail=oneHead; 
+    
+    Node* twoHead=new Node(-1); 
+    Node* twoTail=twoHead; 
+    
+    Node* curr=head; 
+    
+    while(curr != NULL) {
+        int value=curr->data; 
+        
+        if(value == 0) {
+            insertAtTail(zeroTail, curr); 
+        } 
+        else if(value == 1) {
+            insertAtTail(oneTail, curr);
+        } 
+        else {
+            insertAtTail(twoTail, curr);
+        } 
+        
+        curr = curr -> next; 
+    } 
+    
+    // linked list creation 
+    if(oneHead != NULL) {
+        zeroTail -> next = oneHead -> next; 
+    } 
+    else {
+        zeroTail -> next = twoHead -> next; 
+    } 
+    oneTail -> next = twoHead -> next; 
+    twoTail -> next = NULL; 
+    head = zeroHead -> next; 
+    
+    delete zeroHead; 
+    delete oneHead; 
+    delete twoHead; 
+    
+    return head; 
+}
+
+
